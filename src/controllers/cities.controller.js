@@ -1,9 +1,30 @@
 import { db } from "../database/database.connections.js";
 
+export async function createCity(req, res) {
+	const { id } = req.params;
+	const { city } = req.body;
+	try {
+		await db.query(
+			`INSERT INTO cities (
+            state_id,
+			city
+		) VALUES ($1,$2)`,
+			[Number(id), city]
+		);
+		res.sendStatus(201);
+	} catch (err) {
+		res.status(500).send(err.message);
+	}
+}
+
 export async function getStates(req, res) {
 	try {
 		const states = await db.query(`SELECT states.id, states.state, states.uf 
-        FROM states JOIN cities ON cities.state_id=states.id`);
+        FROM states
+		JOIN cities ON cities.state_id=states.id
+		JOIN flights ON flights.to_city_id=cities.id
+		GROUP BY (STATES.ID)
+		`);
 		res.send(states.rows);
 	} catch (err) {
 		res.status(500).send(err.message);
