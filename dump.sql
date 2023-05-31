@@ -160,7 +160,8 @@ CREATE TABLE public.flights (
     from_city_id integer,
     to_city_id integer,
     price integer NOT NULL,
-    date date NOT NULL,
+    date timestamp without time zone NOT NULL,
+    arrive_date timestamp without time zone NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
@@ -195,7 +196,8 @@ CREATE TABLE public.hotels (
     hotel text NOT NULL,
     city_id integer,
     price_per_day integer NOT NULL,
-    created_at timestamp without time zone DEFAULT now() NOT NULL
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    description text NOT NULL
 );
 
 
@@ -396,6 +398,7 @@ INSERT INTO public.cities VALUES (2, 'São Paulo', 25, '2023-05-30 04:34:45.7493
 -- Data for Name: companies; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.companies VALUES (1, 'GOL', 'gol@gol.com', '$2b$10$Ztg2VoPoB42qKkrr3zvoCOYkHX/otxTaAlYl44oTTHn9WLhOj0LYy', '2023-05-30 14:57:28.46299');
 
 
 --
@@ -408,6 +411,7 @@ INSERT INTO public.cities VALUES (2, 'São Paulo', 25, '2023-05-30 04:34:45.7493
 -- Data for Name: flights; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.flights VALUES (3, 1, 'https://img.freepik.com/fotos-gratis/arranha-ceus-ao-por-do-sol_1112-1825.jpg?w=1380&t=st=1685498286~exp=1685498886~hmac=526393442efcf50d4ce6461cd7950bced5a9c0d9980927a2a774c35352ac819b', 1, 2, 35000, '2023-05-30 15:30:00', '2023-05-30 19:30:00', '2023-05-30 21:05:08.919656');
 
 
 --
@@ -426,6 +430,7 @@ INSERT INTO public.cities VALUES (2, 'São Paulo', 25, '2023-05-30 04:34:45.7493
 -- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.sessions VALUES (7, 1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiY29tcGFueSI6IkdPTCIsImlhdCI6MTY4NTQ3OTU0MiwiZXhwIjoxNjg1NDgzMTQyfQ.xT4qVOJZfLJZrsgoE0nI2fEudA1usZaDWefSFFCbxCg', '2023-05-30 15:45:42.068617');
 
 
 --
@@ -479,7 +484,7 @@ SELECT pg_catalog.setval('public.comforts_id_seq', 1, false);
 -- Name: companies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.companies_id_seq', 1, false);
+SELECT pg_catalog.setval('public.companies_id_seq', 1, true);
 
 
 --
@@ -493,7 +498,7 @@ SELECT pg_catalog.setval('public.features_id_seq', 1, false);
 -- Name: flights_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.flights_id_seq', 1, false);
+SELECT pg_catalog.setval('public.flights_id_seq', 3, true);
 
 
 --
@@ -514,7 +519,7 @@ SELECT pg_catalog.setval('public.images_id_seq', 1, false);
 -- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.sessions_id_seq', 1, false);
+SELECT pg_catalog.setval('public.sessions_id_seq', 7, true);
 
 
 --
