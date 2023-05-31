@@ -29,7 +29,8 @@ export async function getFlightsByCity(req, res) {
 			`SELECT flights.image, flights.price, flights.date, flights.arrive_date, companies.company, cities.city 
 			FROM flights 
             JOIN cities ON cities.id=$1
-			JOIN companies ON companies.id=flights.company_id`,
+			JOIN companies ON companies.id=flights.company_id
+			WHERE flights.from_city_id=$1`,
 			[Number(id)]
 		);
 		if (flights.rowCount === 0) return res.sendStatus(404);
