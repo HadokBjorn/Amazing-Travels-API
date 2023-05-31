@@ -5,7 +5,7 @@ export async function createHotel(req, res) {
 	const { hotel, city_id, price_per_day, description } = req.body;
 	try {
 		await db.query(
-			`INSERT INTO flights (
+			`INSERT INTO hotels (
             company_id,
             hotel,
             city_id,
